@@ -1,0 +1,29 @@
+services:
+  vpn:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vpn_all_in_one
+    restart: unless-stopped
+    volumes:
+      - ./vpn:/vpn
+      - ./data:/data
+      - ./ssl:/opt/ssl
+      - ./configs/haproxy.cfg:/etc/haproxy/haproxy.cfg:rw
+      - ./configs:/app/configs:ro
+      
+    environment:
+      - EMAIL=zastawa777@gmail.com
+      - DUCKDNS_TOKEN=geKw2H5cp1diFNirJpebvwnuqf8L
+
+      # можно не задавать DOMAINS, если 04_setconfiguration.py пишет /vpn/domain.txt
+      # но если хочешь явно:
+      # - DOMAINS=my-node.duckdns.org
+
+      - RENEW_INTERVAL=21600
+      - RENEW_BEFORE_DAYS=30
+      - CONFIGS_DIR=/app/configs
+      - VPN_DIR=/vpn
+    ports:
+      - "443:443"
+      - "80:80"
