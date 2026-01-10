@@ -41,12 +41,11 @@ RUN chmod +x /usr/sbin/haproxy
 
 # Скрипты
 COPY docker/sslwatch-haproxy.sh /usr/local/bin/sslwatch-haproxy.sh
-RUN chmod +x /usr/local/bin/sslwatch-haproxy.sh
-
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
 COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY docker/cfgwatch-haproxy.sh /usr/local/bin/cfgwatch-haproxy.sh
 COPY docker/haproxy-reloader.sh /usr/local/bin/haproxy-reloader.sh
+COPY docker/ssl-renew.sh /usr/local/bin/ssl-renew.sh
 RUN chmod +x /usr/local/bin/*.sh
 
 

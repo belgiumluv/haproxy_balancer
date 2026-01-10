@@ -14,6 +14,7 @@ while inotifywait -e close_write,move,create,delete "${CFG%/*}"; do
       supervisorctl restart haproxy || true
     else
       echo "[watch-haproxy] config invalid — not restarting"
+      log "unable to restart haproxy"
     fi
   fi
 done
